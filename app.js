@@ -9,10 +9,16 @@ const orderRoutes = require('./routes/orders');
 const bodyParser = require('body-parser');
 //gives logs for nodejs like requests
 app.use(morgan('dev'));
-app.use('/products',productRoutes);
 //body parser parses the url encoded and json data in proper format
 app.use(bodyParser.urlencoded({extended : true}));
 app.unsubscribe(bodyParser.json());
+//giving CORS(Cross Origin Resource Sharing) permissions to anyone who requests to these end points
+app.use((req,res,next)=>{
+    //* will give access to any origin
+ res.header('Access-Control-Allow-Origin','*');
+})
+
+app.use('/products',productRoutes);
 
 app.use('/orders',orderRoutes);
 
