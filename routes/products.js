@@ -10,4 +10,19 @@ router.post('/',(req,res,next)=>{
         message : 'Handling POSTrequests to /products'
     })
 });
+
+router.get('/:productId',(req,res,next)=>{
+const id = req.params.productId;
+if(id=='special'){
+    res.status(200).json({
+        message:'you discovered the special ID',
+        id: id
+    });
+}
+else{
+    res.status(200).json({
+        message:'you passed an id'
+    })
+}
+});
 module.exports = router;
