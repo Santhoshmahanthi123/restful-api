@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const port = process.env.PORT || 3000;
@@ -8,8 +10,8 @@ const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://'+ process.env.DBUSER +':'+ process.env.DBPASSWORD +'@ds131903.mlab.com:31903/restful-api',{useMongoClient : true});
+console.log(process.env.DBUSER, process.env.DBPASSWORD);
+mongoose.connect('mongodb://'+ process.env.DBUSER +':'+ process.env.DBPASSWORD +'@ds131903.mlab.com:31903/restful-api',{ useNewUrlParser: true });
 
 //gives logs for nodejs like requests
 app.use(morgan('dev'));
