@@ -9,14 +9,16 @@ router.post('/signup',(req,res,next) => {
 
     User.find({email:req.body.email})
     .then(user =>{
-        if(user){
+        //user shouldn't be an empty array
+        if(user.length >= 1){
             //409 is a conflict
             return res.status(409).json({
                 message : 'Mail exists!'
             });
         }
         else{
-
+ //the number 10 here is to perform hashing 10 times to 
+     //avoid our password to googling in dictionary tables
             bcrypt.hash(req.body.password,10,(err,hash) =>{
                 if(err){
                     return res.status(500).json({
@@ -48,12 +50,25 @@ router.post('/signup',(req,res,next) => {
 
         }
     });
-    //the number 10 here is to perform hashing 10 times to 
-     //avoid our password to googling in dictionary tables
+   
     
   
 });
 
-
+router.delete('/:userId',(req,res,next) => {
+    User.remove({_id:req.params.userId})
+    .exec()
+    .then(result => {
+        res.status(200).json({
+            message:'User deleted!   '
+        }); 
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error : err
+        });
+    });
+})
 
 module.exports = router;
