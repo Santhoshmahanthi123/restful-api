@@ -50,9 +50,6 @@ router.post('/signup',(req,res,next) => {
 
         }
     });
-   
-    
-  
 });
 
 router.delete('/:userId',(req,res,next) => {
