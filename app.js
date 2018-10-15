@@ -18,7 +18,7 @@ mongoose.Promise = global.Promise;
 app.use(morgan('dev'));
 //body parser parses the url encoded and json data in proper format
 app.use(bodyParser.urlencoded({extended : true}));
-app.unsubscribe(bodyParser.json());
+app.use(bodyParser.json());
 //giving CORS(Cross Origin Resource Sharing) permissions to anyone who requests to these end points
 app.use((req,res,next)=>{
     //* will give access to any origin
