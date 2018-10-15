@@ -76,6 +76,7 @@ router.post('/',(req,res,next)=>{
 
 router.get('/:orderId',(req,res,next)=>{
    Order.findById(req.params.orderId)
+   .populate('product')
    .select('quantity _id product')
    .exec()
    .then(order =>{
