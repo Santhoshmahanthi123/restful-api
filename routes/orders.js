@@ -78,6 +78,11 @@ router.get('/:orderId',(req,res,next)=>{
    .select('quantity _id product')
    .exec()
    .then(order =>{
+       if(!order){
+           return res.status(404).json({
+               message : 'Order not found!'
+           });
+       }
        res.status(200).json({
            order : order,
            request:{
@@ -97,9 +102,9 @@ router.get('/:orderId',(req,res,next)=>{
 
 router.delete('/:orderId',(req,res,next)=>{
     const id = req.params.orderId;
-   Order.deleteOne({_id : id })
+   Order.remove({_id : id })
    .exec()
-   .then(result => {
+   .then(order => {
     res.status(200).json({
         message : 'Order deleted!',
         request : {
@@ -111,7 +116,7 @@ router.delete('/:orderId',(req,res,next)=>{
             }
         }
     })
-   })
+   }) 
    .catch( err => {
     console.log(err);
     res.status(500).json({
