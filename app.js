@@ -16,7 +16,10 @@ mongoose.connect('mongodb://'+ process.env.DBUSER +':'+ process.env.DBPASSWORD +
 mongoose.Promise = global.Promise;
 //gives logs for nodejs like requests
 app.use(morgan('dev'));
+//allows static files to be accessed publicly available
+app.use('/uploads',express.static('uploads'));
 //body parser parses the url encoded and json data in proper format
+
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 //giving CORS(Cross Origin Resource Sharing) permissions to anyone who requests to these end points
