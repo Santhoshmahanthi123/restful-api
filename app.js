@@ -8,6 +8,7 @@ const app = express();
 const morgan = require('morgan');
 const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
+const userRoutes = require('./routes/user');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 console.log(process.env.DBUSER, process.env.DBPASSWORD);
@@ -37,6 +38,8 @@ app.use((req,res,next)=>{
 app.use('/products',productRoutes);
 
 app.use('/orders',orderRoutes);
+
+app.use('/user',userRoutes);
 
 app.use((req,res,next)=>{
     const error = new Error('Not found!');
