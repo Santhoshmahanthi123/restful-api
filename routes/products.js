@@ -1,10 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
+
+//allows you to storing the files in uploads 
+const storage = multer.diskStorage({
+    destination : function(req,file,cb){
+        cb(null,'./uploads/');
+    },
+    filename : function(req,file,cb){
+        cb(null,new Date().toISOString()+ file.originalname);
+
+    }
+});
+//multer parses the files coming from the body and stores in the uploads folder 
+const upload = multer({storage : storage});
 const Product = require('../models/product');
 router.get('/',(req,res,next)=>{
  Product.find()
- //to select specific fields in data base
  .select('name price _id')
  .exec()
  .then(docs => {
@@ -38,7 +51,8 @@ router.get('/',(req,res,next)=>{
  });
 
 });
-router.post('/',(req,res,next)=>{
+router.post('/', upload.single('productImage'),(req,res,next)=>{
+    console.log(req.file);
     const product = new Product({
         _id : new mongoose.Types.ObjectId(),
         name : req.body.name,
