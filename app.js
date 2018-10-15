@@ -12,7 +12,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 console.log(process.env.DBUSER, process.env.DBPASSWORD);
 mongoose.connect('mongodb://'+ process.env.DBUSER +':'+ process.env.DBPASSWORD +'@ds131903.mlab.com:31903/restful-api',{ useNewUrlParser: true });
-
+//removing deprecation warnings 
+mongoose.Promise = global.Promise;
 //gives logs for nodejs like requests
 app.use(morgan('dev'));
 //body parser parses the url encoded and json data in proper format
