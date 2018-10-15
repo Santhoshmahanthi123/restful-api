@@ -4,9 +4,14 @@ const mongoose = require('mongoose');
 const Product = require('../models/product');
 router.get('/',(req,res,next)=>{
  Product.find()
+ //to select specific fields in data base
+ .select('name price _id')
  .exec()
  .then(docs => {
-    console.log(docs);
+     const response = {
+        count : docs.length,
+        products : docs
+     };
     if(docs.length >= 0){
         res.status(200).json(docs);
     }else{
@@ -74,7 +79,7 @@ router.patch("/:productId",(req,res,next)=>{
     // const updateOps = {};
     // for(const ops of req.body){
     //     updateOps[ops.propName] = ops.value;
-    // }
+    // } 
     
     Product.updateMany({_id : id },{ $set : {name:req.body.name,price:req.body.price}})
      .exec()
