@@ -109,3 +109,26 @@ exports.user_delete = (req,res,next) => {
         });
     });
 }
+
+exports.users_get = (req,res,next) => {
+    User.find()
+    .select('email')
+    .exec()
+    .then(result => {
+        // console.log('Users found!')
+        console.log(result);
+        // res.status(200).json({
+        //     message:'Uses found!',
+            
+        
+
+        // }); 
+        res.send(result);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error : err
+        });
+    });
+}
