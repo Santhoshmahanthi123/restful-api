@@ -34,7 +34,7 @@ const upload = multer({storage : storage,limits : {
     },
     file :file
 });
-router.get('/',checkAuth,ProductsController.products_get_all);
+router.get('/',ProductsController.products_get_all);
 router.post('/',checkAuth,upload.single('productImage'),ProductsController.products_create_product);
 
 router.get('/:productId',checkAuth,ProductsController.products_get_product);
